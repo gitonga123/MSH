@@ -32749,11 +32749,123 @@ INSERT INTO `zones` (`zone`, `comment`, `zone_id`) VALUES
 ('Endemic', '', 3),
 ('Low risk', '', 4);
 
+
+-- ----------------------------------------------------------
+--
+-- Table structure for table mapping_drug_category
 --
 -- Indexes for dumped tables
 --
+  CREATE TABLE IF NOT EXISTS `mapping_drugs_category` (
+  `mapping_drugs_category` int(11) NOT NULL,
+    `mapping_id` varchar(20) NOT NULL,
+    `mapping_name` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=latin1;
 
+--- -----------------------------------------------------------
+-- Values to insert into the table
 --
+--
+INSERT INTO `mapping_drugs_category` (`mapping_drugs_category`, `mapping_id`, `mapping_name`) VALUES
+(94, 'JbyUGpeqakf', '(Comments (Central))'),
+(95, 'sQWZvhfBiKN', '(12-Month MOS (County))'),
+(96, 'C8pomNUZkvB', '(Reorder Level MOS (Lower Level Facility))'),
+(97, 'SLkSfmxOn5I', '(6-Month MOS (Sub-County))'),
+(98, 'gfELFST5iz0', '(Pending With Suppliers 6-Month MOS)'),
+(99, 'i5L4tEJJdcC', '(Receipts (Central))'),
+(100, 'i9dqmLZr7fd', '(Ending Balance)'),
+(101, 'bGGT0F7iRxt', 'Cycle Beads, FP'),
+(102, '201510', 'October 2015'),
+(103, 'J4tZi0ipfUv', '(Issues MOS 12-Month)'),
+(104, '201512', 'December 2015'),
+(105, 'VW51Ep3auXR', '(Received This Month)'),
+(106, '201511', 'November 2015'),
+(107, 'g9NXzls9QKK', '(Min MOS (Programme))'),
+(108, 'Cs84jrj1YFp', '(Beginning Balance)'),
+(109, 'JnLGUfxCt9X', '(Min MOS (Central))'),
+(110, 'dx', 'Data'),
+(111, 'XgJfT71Unkn', 'Implants (1-Rod), FP'),
+(112, 'zAQ300AVYqd', '(12-Month MOS (Sub-County))'),
+(113, 'LIkD6rheSrF', '(CENTRAL_MOS_12_MONTH_OVERALL)'),
+(114, 'tfPZ6sGgh4q', 'IUCDs, FP'),
+(115, 'naVSwUiGXrT', '(Min MOS (Lower Level Facility))'),
+(116, 'p8PidvKaOkp', '(Quantity Requested)'),
+(117, 'DA4DlgD2Ext', '(Pending With Suppliers 3-Month MOS)'),
+(118, 'BNXXLtV6IEw', '(Price (KES))'),
+(119, 'vgRF3QQ1mrD', '(Transfers IN (Central))'),
+(120, 'YzamFZLyF0s', '(6_MONTH_MOS_FACILITY_CENTRAL)'),
+(121, 'kI3BKYhPRpP', '(6-Month MOS (County))'),
+(122, 'HfVjCurKxh2', 'Kenya'),
+(123, 'dl4JcBnxu0X', 'Progestin only pills, FP'),
+(124, '201602', 'February 2016'),
+(125, 'u7oLuXrz1aV', '(SOH Last Month (Central))'),
+(126, '201601', 'January 2016'),
+(127, 'hd7kVXb4Wdt', '(Desired MOS (Central))'),
+(128, 'wlwCxWgecNX', '(Pending With Suppliers Overall 6 Month MOS (Centr'),
+(129, 'LIvC8Kensqi', '(3-Month MOS (Facility))'),
+(130, 'AVDzuypqGt9', 'Male Condoms, FP'),
+(131, 'bpBdhwnEALW', '(Issues MOS 6-Month)'),
+(132, 'SA3F952mJIU', '(3_MONTH_MOS_FACILITY_CENTRAL)'),
+(133, 'hLeoTQPEEKC', '(Desired MOS (Programme))'),
+(134, 'hH9gmEmEhH4', 'Combined Oral contraceptive Pills, FP'),
+(135, 'YDskLVmUip5', '(Reorder Level MOS (Central))'),
+(136, 'J6qnTev1LXw', 'Injectables, FP'),
+(137, 'AR7RhdC90IV', 'Female Condoms, FP'),
+(138, 'MQ7qdzx1pCl', '(Pending With Suppliers Overall 3 Month MOS (Centr'),
+(139, 'veLruYpDIL0', '(6-Month AMI (Central))'),
+(140, 'NtWSjX4BpsU', '(3-Month AVG Adjusted Consumption)'),
+(141, 'bgUtSuEltUS', '(VARIANCE)'),
+(142, 'NBQ0BBk8byM', '(6-Month MOS (Facility))'),
+(143, 'to0Pssxkq4S', '(Dispensed)'),
+(144, 'Df3xbkhF8wT', '(Pending With Suppliers 12-Month MOS)'),
+(145, 'haB11CgM9Ni', '(3-Month MOS (Sub-County))'),
+(146, 'f4FrXSPlGLV', '(Max MOS (Central))'),
+(147, 'itP7CCjKTCn', '(Price (USD))'),
+(148, 'Du3uEwRWTaD', '(Forecasted Consumption)'),
+(149, 'RCFLtvdD9Ja', '(Issues (Central))'),
+(150, 'y5TPl2vV9uP', '(12 Month AMI (Central))'),
+(151, 'ZJh4h6fzNj8', '(12-Month MOS (Facility))'),
+(152, 'dEdq7sZfzs7', '(3-Month AMI (Central))'),
+(153, 'wkXcJRRTRxA', '(Losses)'),
+(154, 'n6ohyqKkMnn', '(CENTRAL_MOS_6_MONTH_OVERALL)'),
+(155, 'AO6xfSyHuHU', '(Negative)'),
+(156, 'oQ2ptXnbvIa', '(3-Month MOS (County))'),
+(157, 'Ihw3bTz5JWJ', '(6-Month AVG Adjusted Consumption)'),
+(158, 'uVUr0tqgcw8', '(12-Month MOS (Central))'),
+(159, 'y7HT7LRL17r', '(Issues (KES))'),
+(160, 'ZqS6gb8RHe3', '(Pending with Suppliers (Central))'),
+(161, 'YRB317LLVeC', '(Issues (USD))'),
+(162, 'OomnsG3vbvU', '(12_MONTH_MOS_FACILITY_CENTRAL)'),
+(163, 'eSVRosaBZPQ', '(SOH This Month (Central))'),
+(164, '201507', 'July 2015'),
+(165, 'Gk8P9KL2Ofj', '(Desired MOS (Lower Level Facility))'),
+(166, '201506', 'June 2015'),
+(167, 'f7EedExxkaR', '(Issues MOS 3-Month)'),
+(168, '201509', 'September 2015'),
+(169, 'ou', 'Organisation unit'),
+(170, '201508', 'August 2015'),
+(171, '201503', 'March 2015'),
+(172, 'MsS41X1GEFr', 'Implants (2-Rod), FP'),
+(173, 'rPVnGYxtdhe', '(6-Month MOS (Central))'),
+(174, 'QKvDccYJ18W', 'Others, FP'),
+(175, '201505', 'May 2015'),
+(176, '201504', 'April 2015'),
+(177, 'ZhhvsBd0N8s', '(Projected Consumption (Central))'),
+(178, 'co', 'Category option combo'),
+(179, 'y22y7g2Rd30', '(CENTRAL_MOS_3_MONTH_OVERALL)'),
+(180, 'wJf56X53KKi', '(Transfers OUT (Central))'),
+(181, 'fCercEDOXzR', '(Pending With Suppliers Overall 12 Month MOS (Cent'),
+(182, 'ACq8ouVqYAp', '(12-Month AVG Adjusted Consumption)'),
+(183, 'pe', 'Period'),
+(184, 'qaBPR9wbWku', 'Emergency Contraceptive pills, FP'),
+(185, 'KZxWe6NvkD0', '(Max MOS (Programme))'),
+(186, 'Qou5pEblOgh', '(Max MOS (Lower Level Facility))'),
+(187, 'oCgfX0WWfYW', '(3-Month MOS (Central))'),
+(188, 'JQ7EF0X1LIJ', '(Positive)');
+
+
+------------------------------------------------------------------------------
+-----------
 -- Indexes for table `central_level_data`
 --
 ALTER TABLE `central_level_data`
