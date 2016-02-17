@@ -1,4 +1,4 @@
-<?php require_once("includes/header.php"); ?>
+<?php require_once("includes/lab_header.php"); ?>
 
 
 
@@ -90,9 +90,9 @@
 
                                     <td><?php echo $count; ?></td>
                                     <td>
-                                        <?php foreach ($commodity as $malaria_commodity):
-                                            if ($malaria_commodity->commodity_id == $central_level_data->commodity_id)
-                                                echo $malaria_commodity->commodity_name . " " . $malaria_commodity->unit_of_measure;
+                                        <?php foreach ($commodity as $lab_commodity):
+                                            if ($lab_commodity->commodity_id == $central_level_data->commodity_id)
+                                                echo $lab_commodity->commodity_name . " " . $lab_commodity->unit_of_measure;
                                         endforeach; ?></td>
                                     <td> <?php foreach ($supply_chain_agency as $supply): ?>
                                             <?php
@@ -125,8 +125,8 @@
 
                    <div class="form-group"><input type="hidden" name="central_level_stock_id" value="<?php echo $central_level_data->central_level_stock_id; ?>" class="form-control"></div>
                   <div class="form-group"><label>Commodity: </label><select class="form-control m-b" name="commodity_name" >
-                    <?php foreach ($commodity as $malaria_commodity): ?>  
-                      <option  value="<?php  echo $malaria_commodity->commodity_name;?>" <?php if ($malaria_commodity->commodity_id==$central_level_data->commodity_id){echo"selected";} ?>><?php  echo $malaria_commodity->commodity_name;?></option>
+                    <?php foreach ($commodity as $lab_commodity): ?>  
+                      <option  value="<?php  echo $lab_commodity->commodity_name;?>" <?php if ($lab_commodity->commodity_id==$central_level_data->commodity_id){echo"selected";} ?>><?php  echo $lab_commodity->commodity_name;?></option>
                     <?php endforeach; ?>
                                         </select></div>
                    <div class="form-group"><label>Funding agency: </label><select class="form-control m-b" name="funding_agency_name" >
@@ -201,8 +201,8 @@
                     <option value = "">[Select]</option>
                     <?php foreach ($pending_shipment as $pending): ?>  
                     <option  value="<?php echo $pending->pending_shipment_id;?>">  <table border='1'> 
-                      <tr><td><?php foreach ($commodity as $malaria_commodity):
-                       if ($malaria_commodity->commodity_id == $pending->commodity_id){echo $malaria_commodity->commodity_name;}
+                      <tr><td><?php foreach ($commodity as $lab_commodity):
+                       if ($lab_commodity->commodity_id == $pending->commodity_id){echo $lab_commodity->commodity_name;}
                        endforeach;?>
                      </td><td>--</td><td>
                      <?php foreach ($funding_agency as $agency): 

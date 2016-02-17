@@ -1,4 +1,4 @@
-<?php require_once("includes/header.php"); ?>
+<?php require_once("includes/lab_header.php"); ?>
 
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -39,18 +39,18 @@
 
                             <tbody>
                             <?php $count=1; ?>
-                            <?php foreach ($commodity as $malaria_commodity): ?>
+                            <?php foreach ($commodity as $lab_commodity): ?>
 
                                 <tr>
                                     <td><?php echo $count; ?></td>
-                                    <td><?php echo $malaria_commodity->commodity_name; ?></td>
-                                    <td><?php echo $malaria_commodity->alt_name;?></td>
-                                    <td><?php echo $malaria_commodity->unit_of_measure;?></td>
-                                    <td><?php echo $malaria_commodity->commodity_description; ?></td>
-                                   <td data-toggle="modal" data-target="#myModal_<?php echo $malaria_commodity->commodity_id; ?>"><i class="fa fa-wrench"></i>
+                                    <td><?php echo $lab_commodity->commodity_name; ?></td>
+                                    <td><?php echo $lab_commodity->alt_name;?></td>
+                                    <td><?php echo $lab_commodity->unit_of_measure;?></td>
+                                    <td><?php echo $lab_commodity->commodity_description; ?></td>
+                                   <td data-toggle="modal" data-target="#myModal_<?php echo $lab_commodity->commodity_id; ?>"><i class="fa fa-wrench"></i>
 
 
-                                         <div class="modal inmodal" id="myModal_<?php echo $malaria_commodity->commodity_id; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                         <div class="modal inmodal" id="myModal_<?php echo $lab_commodity->commodity_id; ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                <div class="modal-dialog">
                                     <div class="modal-content animated bounceInRight">
                                         <div class="modal-header">
@@ -63,11 +63,11 @@
                                         <form action="<?= base_url();?>commodity/update_commodity" method="post" enctype="multipart/form-data">  
                                         <div class="modal-body">
 
-                           <div class="form-group"><input type="hidden" name="commodity_id" value="<?php echo $malaria_commodity->commodity_id; ?>" class="form-control"></div>
-                                        <div class="form-group"><label>Commodity: </label> <input type="text" name="commodity_name" value="<?php echo $malaria_commodity->commodity_name; ?>" class="form-control"></div>
-                                        <div class="form-group"><label>Alternative name: </label> <input type="text" name="alt_name" value="<?php echo $malaria_commodity->alt_name; ?>" class="form-control"></div>
-                                        <div class="form-group"><label>Unit of measure: </label> <input type="text" name="unit_of_measure" value="<?php echo $malaria_commodity->unit_of_measure; ?>" class="form-control"></div>
-                                       <div class="form-group"><label>Description: </label> <input type="text" name="commodity_description" value="<?php echo $malaria_commodity->commodity_description; ?>" class="form-control"></div></div>
+                           <div class="form-group"><input type="hidden" name="commodity_id" value="<?php echo $lab_commodity->commodity_id; ?>" class="form-control"></div>
+                                        <div class="form-group"><label>Commodity: </label> <input type="text" name="commodity_name" value="<?php echo $lab_commodity->commodity_name; ?>" class="form-control"></div>
+                                        <div class="form-group"><label>Alternative name: </label> <input type="text" name="alt_name" value="<?php echo $lab_commodity->alt_name; ?>" class="form-control"></div>
+                                        <div class="form-group"><label>Unit of measure: </label> <input type="text" name="unit_of_measure" value="<?php echo $lab_commodity->unit_of_measure; ?>" class="form-control"></div>
+                                       <div class="form-group"><label>Description: </label> <input type="text" name="commodity_description" value="<?php echo $lab_commodity->commodity_description; ?>" class="form-control"></div></div>
                                         <div class="modal-footer">
                                              <button type="submit" class="btn btn-primary">Save changes</button>
 
@@ -80,7 +80,7 @@
                             </div>
                             </td> 
                                     <td>
-                                        <a href="<?php echo(base_url()."commodity/delete_commodity/".$malaria_commodity->commodity_id); ?>"><i class="fa fa-trash"></i></a>
+                                        <a href="<?php echo(base_url()."commodity/delete_commodity/".$lab_commodity->commodity_id); ?>"><i class="fa fa-trash"></i></a>
                                     </td></tr>
                                 <?php $count++; endforeach; ?>
                             </tbody>

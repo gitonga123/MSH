@@ -1,4 +1,4 @@
-<?php require_once("includes/header.php"); ?>
+<?php require_once("includes/lab_header.php"); ?>
 
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -56,9 +56,9 @@
                                 <?php foreach ($update_stock as $central_level_data): ?> 
                                  <tr>
                                     <td><?php echo $count; ?></td>
-                                      <td><?php foreach ($commodity as $malaria_commodity):
-                                      if ($malaria_commodity->commodity_id==$central_level_data->commodity_id) {
-                                        echo $malaria_commodity->commodity_name;
+                                      <td><?php foreach ($commodity as $lab_commodity):
+                                      if ($lab_commodity->commodity_id==$central_level_data->commodity_id) {
+                                        echo $lab_commodity->commodity_name;
                                       }
                                          endforeach;
                                       ?></td>
@@ -84,8 +84,8 @@
 
                    <div class="form-group"><input type="hidden" name="current_stock_id" value="<?php echo $central_level_data->current_stock_id; ?>" class="form-control"></div>
                   <div class="form-group"><label>Commodity: </label><select class="form-control m-b" name="commodity_name" >
-                    <?php foreach ($commodity as $malaria_commodity): ?>  
-                      <option  value="<?php  echo $malaria_commodity->commodity_name;?>" <?php if ($malaria_commodity->commodity_id==$central_level_data->commodity_id){echo"selected";} ?>><?php  echo $malaria_commodity->commodity_name;?></option>
+                    <?php foreach ($commodity as $lab_commodity): ?>  
+                      <option  value="<?php  echo $lab_commodity->commodity_name;?>" <?php if ($lab_commodity->commodity_id==$central_level_data->commodity_id){echo"selected";} ?>><?php  echo $lab_commodity->commodity_name;?></option>
                     <?php endforeach; ?>
                                         </select></div>
                  <div class="form-group"><label>Quantity received: </label> <input type="text" name="quantity_received" value="<?php echo $central_level_data->quantity_received; ?>" class="form-control"></div>
@@ -136,8 +136,8 @@
                     <div class="modal-body">
 
                   <div class="form-group"><label>Commodity: </label><select class="form-control m-b" name="commodity_name">
-                    <?php foreach ($commodity as $malaria_commodity): ?>  
-                      <option  value="<?php  echo $malaria_commodity->commodity_name;?>"><?php  echo $malaria_commodity->commodity_name;?></option>
+                    <?php foreach ($commodity as $lab_commodity): ?>  
+                      <option  value="<?php  echo $lab_commodity->commodity_name;?>"><?php  echo $lab_commodity->commodity_name;?></option>
                     <?php endforeach; ?>
                       </select></div>                   
                   <div class="form-group"><label>Quantity received: </label> <input type="text" name="quantity_received" placeholder="Quantity received"  class="form-control"></div>

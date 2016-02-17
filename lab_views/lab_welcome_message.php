@@ -1,4 +1,4 @@
-<?php require_once("includes/header.php"); ?>
+<?php require_once("includes/lab_header.php"); ?>
 
 <?php /*print_r($national_period);*/?>
 

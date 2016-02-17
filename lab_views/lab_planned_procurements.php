@@ -1,4 +1,4 @@
-<?php require_once("includes/header.php"); ?>
+<?php require_once("includes/lab_header.php"); ?>
 
 
     <div class="row wrapper border-bottom white-bg page-heading" xmlns="http://www.w3.org/1999/html">
