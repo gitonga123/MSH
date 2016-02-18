@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `central_level_data`
 --
 
-CREATE TABLE IF NOT EXISTS `central_level_data` (
+CREATE TABLE IF NOT EXISTS `lab_central_level_data` (
 `central_level_stock_id` int(25) NOT NULL,
   `supply_agency_id` int(25) NOT NULL,
   `commodity_id` varchar(25) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `central_level_data` (
 -- Dumping data for table `central_level_data`
 --
 
-INSERT INTO `central_level_data` (`central_level_stock_id`, `supply_agency_id`, `commodity_id`, `period`, `soh_closing_balance`, `funding_agency_id`, `pending_stock_id`) VALUES
+INSERT INTO `lab_central_level_data` (`central_level_stock_id`, `supply_agency_id`, `commodity_id`, `period`, `soh_closing_balance`, `funding_agency_id`, `pending_stock_id`) VALUES
 (46, 34, 'nNhisoZuTzR', '201507', '453345`', 5, ''),
 (53, 4, 'iQvswzF7Zcr', '201507', '56', 4, ''),
 (54, 34, 'MnMPmhXaWns', '201507', '3456321', 6, ''),
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 -- Table structure for table `commodity_forecast_data`
 --
 
-CREATE TABLE IF NOT EXISTS `commodity_forecast_data` (
+CREATE TABLE IF NOT EXISTS `lab_commodity_forecast_data` (
 `commodity_forecast_data_id` int(25) NOT NULL,
   `forecast_start_date` varchar(15) NOT NULL,
   `forecast_period` int(10) NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `commodity_forecast_data` (
 -- Dumping data for table `commodity_forecast_data`
 --
 
-INSERT INTO `commodity_forecast_data` (`commodity_forecast_data_id`, `forecast_start_date`, `forecast_period`, `commodity_id`, `forecast_monthly_consumption`) VALUES
+INSERT INTO `lab_commodity_forecast_data` (`commodity_forecast_data_id`, `forecast_start_date`, `forecast_period`, `commodity_id`, `forecast_monthly_consumption`) VALUES
 (5, '201507', 2, 'nNhisoZuTzR', '1245'),
 (7, '201508', 5, 'H3PiVz5cdlS', '380'),
 (8, '201510', 2, 'THefpTo9qAa', '600'),
@@ -160,7 +160,7 @@ INSERT INTO `counties` (`county_id`, `county_name`, `zone`, `comment`) VALUES
 -- Table structure for table `county_level_data`
 --
 
-CREATE TABLE IF NOT EXISTS `county_level_data` (
+CREATE TABLE IF NOT EXISTS `lab_county_level_data` (
 `county_drugs_id` int(11) NOT NULL,
   `county_id` varchar(50) NOT NULL,
   `drug_id` varchar(20) NOT NULL,
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `county_level_data` (
 -- Dumping data for table `county_level_data`
 --
 
-INSERT INTO `county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
+INSERT INTO `lab_county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
 (4597, 'BjC1xL40gHo', 'nNhisoZuTzR', '201504', 'EJ8nUfcupBq', '300.0', ''),
 (4598, 'BjC1xL40gHo', 'H3PiVz5cdlS', '201505', 'sL6cDCzo7h9', '84.0', ''),
 (4599, 'BjC1xL40gHo', 'nNhisoZuTzR', '201503', 'EJ8nUfcupBq', '498.0', ''),
@@ -850,7 +850,7 @@ INSERT INTO `county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `per
 (5269, 'kphDeKClFch', 'H3PiVz5cdlS', '201504', 'ZxUQw1ay1cw', '669.0', ''),
 (5270, 'kphDeKClFch', 'H3PiVz5cdlS', '201505', 'ZxUQw1ay1cw', '80.0', ''),
 (5271, 'kphDeKClFch', 'H3PiVz5cdlS', '201503', 'ZxUQw1ay1cw', '1730.0', '');
-INSERT INTO `county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
+INSERT INTO `lab_county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
 (5272, 'kphDeKClFch', 'fgGcpHh5Bl6', '201503', 'HMJ9YZLMqo3', '85.0', ''),
 (5273, 'kphDeKClFch', 'H3PiVz5cdlS', '201504', 'LDmTsQdoXs5', '7.0', ''),
 (5274, 'kphDeKClFch', 'fgGcpHh5Bl6', '201504', 'HMJ9YZLMqo3', '70.0', ''),
@@ -1525,7 +1525,7 @@ INSERT INTO `county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `per
 (5943, 'pZqQRRW7PHP', 'nNhisoZuTzR', '201503', 'EJ8nUfcupBq', '12559.0', ''),
 (5944, 'pZqQRRW7PHP', 'H3PiVz5cdlS', '201503', 'sL6cDCzo7h9', '414.0', ''),
 (5945, 'pZqQRRW7PHP', 'H3PiVz5cdlS', '201504', 'sL6cDCzo7h9', '171.0', '');
-INSERT INTO `county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
+INSERT INTO `lab_county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
 (5946, 'pZqQRRW7PHP', 'THefpTo9qAa', '201505', 'HMJ9YZLMqo3', '2.0', ''),
 (5947, 'pZqQRRW7PHP', 'H3PiVz5cdlS', '201504', 'MT1UWZvCVUQ', '60.0', ''),
 (5948, 'pZqQRRW7PHP', 'H3PiVz5cdlS', '201503', 'MT1UWZvCVUQ', '130.0', ''),
@@ -2199,7 +2199,7 @@ INSERT INTO `county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `per
 (6616, 'u4t9H8XyU9P', 'nNhisoZuTzR', '201504', 'HMJ9YZLMqo3', '22082.0', ''),
 (6617, 'u4t9H8XyU9P', 'nNhisoZuTzR', '201504', 'MT1UWZvCVUQ', '16300.0', ''),
 (6618, 'u4t9H8XyU9P', 'nNhisoZuTzR', '201505', 'HMJ9YZLMqo3', '831.0', '');
-INSERT INTO `county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
+INSERT INTO `lab_county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
 (6619, 'u4t9H8XyU9P', 'nNhisoZuTzR', '201503', 'MT1UWZvCVUQ', '27250.0', ''),
 (6620, 'u4t9H8XyU9P', 'MnMPmhXaWns', '201504', 'MT1UWZvCVUQ', '500.0', ''),
 (6621, 'u4t9H8XyU9P', 'MnMPmhXaWns', '201503', 'MT1UWZvCVUQ', '750.0', ''),
@@ -2625,7 +2625,7 @@ INSERT INTO `county_level_data` (`county_drugs_id`, `county_id`, `drug_id`, `per
 -- Table structure for table `county_level_reporting_rates`
 --
 
-CREATE TABLE IF NOT EXISTS `county_level_reporting_rates` (
+CREATE TABLE IF NOT EXISTS `lab_county_level_reporting_rates` (
 `reporting_rate_id` int(11) NOT NULL,
   `reporting_rate_value` varchar(10) NOT NULL,
   `period` varchar(10) NOT NULL,
@@ -2637,7 +2637,7 @@ CREATE TABLE IF NOT EXISTS `county_level_reporting_rates` (
 -- Dumping data for table `county_level_reporting_rates`
 --
 
-INSERT INTO `county_level_reporting_rates` (`reporting_rate_id`, `reporting_rate_value`, `period`, `county_id`, `date`) VALUES
+INSERT INTO `lab_county_level_reporting_rates` (`reporting_rate_id`, `reporting_rate_value`, `period`, `county_id`, `date`) VALUES
 (942, '102.0', '201509', 'BjC1xL40gHo', ''),
 (943, '97.5', '201507', 'BjC1xL40gHo', ''),
 (944, '104.0', '201508', 'BjC1xL40gHo', ''),
@@ -2954,7 +2954,7 @@ INSERT INTO `county_level_reporting_rates` (`reporting_rate_id`, `reporting_rate
 -- Table structure for table `county_level_soh`
 --
 
-CREATE TABLE IF NOT EXISTS `county_level_soh` (
+CREATE TABLE IF NOT EXISTS `lab_county_level_soh` (
   `county` varchar(20) NOT NULL,
   `report_period` varchar(20) NOT NULL,
   `commodity` varchar(30) NOT NULL,
@@ -2971,7 +2971,7 @@ CREATE TABLE IF NOT EXISTS `county_level_soh` (
 -- Table structure for table `current_stock`
 --
 
-CREATE TABLE IF NOT EXISTS `current_stock` (
+CREATE TABLE IF NOT EXISTS `lab_current_stock` (
 `current_stock_id` int(25) NOT NULL,
   `commodity_id` varchar(255) NOT NULL,
   `quantity_received` int(255) NOT NULL,
@@ -2984,7 +2984,7 @@ CREATE TABLE IF NOT EXISTS `current_stock` (
 -- Dumping data for table `current_stock`
 --
 
-INSERT INTO `current_stock` (`current_stock_id`, `commodity_id`, `quantity_received`, `quantity_issued`, `soh`, `period`) VALUES
+INSERT INTO `lab_current_stock` (`current_stock_id`, `commodity_id`, `quantity_received`, `quantity_issued`, `soh`, `period`) VALUES
 (4, 'nNhisoZuTzR', 76, 65, 7, '201512'),
 (5, 'iQvswzF7Zcr', 89, 54, 2, '201512'),
 (6, 'MnMPmhXaWns', 600, 765, 5, '201509'),
@@ -3000,7 +3000,7 @@ INSERT INTO `current_stock` (`current_stock_id`, `commodity_id`, `quantity_recei
 -- Table structure for table `facility_level_data`
 --
 
-CREATE TABLE IF NOT EXISTS `facility_level_data` (
+CREATE TABLE IF NOT EXISTS `lab_facility_level_data` (
 `central_drugs_id` int(11) NOT NULL,
   `drug_id` varchar(20) NOT NULL,
   `period` varchar(20) NOT NULL,
@@ -3013,7 +3013,7 @@ CREATE TABLE IF NOT EXISTS `facility_level_data` (
 -- Dumping data for table `facility_level_data`
 --
 
-INSERT INTO `facility_level_data` (`central_drugs_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
+INSERT INTO `lab_facility_level_data` (`central_drugs_id`, `drug_id`, `period`, `drug_category_id`, `drug_value`, `date`) VALUES
 (121, 'nNhisoZuTzR', '201504', 'EJ8nUfcupBq', '37218.0', ''),
 (122, 'H3PiVz5cdlS', '201505', 'sL6cDCzo7h9', '1344.0', ''),
 (123, 'UDNKVH14KuC', '201503', 'HMJ9YZLMqo3', '674.0', ''),
@@ -3199,7 +3199,7 @@ INSERT INTO `facility_level_data` (`central_drugs_id`, `drug_id`, `period`, `dru
 -- Table structure for table `facility_level_reporting_rates`
 --
 
-CREATE TABLE IF NOT EXISTS `facility_level_reporting_rates` (
+CREATE TABLE IF NOT EXISTS `lab_facility_level_reporting_rates` (
 `reporting_rate_id` int(11) NOT NULL,
   `reporting_rate_value` varchar(10) NOT NULL,
   `period` varchar(10) NOT NULL,
@@ -3210,7 +3210,7 @@ CREATE TABLE IF NOT EXISTS `facility_level_reporting_rates` (
 -- Dumping data for table `facility_level_reporting_rates`
 --
 
-INSERT INTO `facility_level_reporting_rates` (`reporting_rate_id`, `reporting_rate_value`, `period`, `date`) VALUES
+INSERT INTO `lab_facility_level_reporting_rates` (`reporting_rate_id`, `reporting_rate_value`, `period`, `date`) VALUES
 (35, '48.6', '201509', '2016-02-16 09:28:27'),
 (36, '44.2', '201507', '2016-02-16 09:28:27'),
 (37, '44.2', '201508', '2016-02-16 09:28:27'),
@@ -3229,7 +3229,7 @@ INSERT INTO `facility_level_reporting_rates` (`reporting_rate_id`, `reporting_ra
 -- Table structure for table `facility_level_soh`
 --
 
-CREATE TABLE IF NOT EXISTS `facility_level_soh` (
+CREATE TABLE IF NOT EXISTS `lab_facility_level_soh` (
   `period` varchar(10) NOT NULL,
   `commodity_name` varchar(30) NOT NULL,
   `pack_size` varchar(20) NOT NULL,
@@ -3266,10 +3266,10 @@ INSERT INTO `funding_agencies` (`funding_agency_id`, `funding_agency_name`, `com
 -- --------------------------------------------------------
 
 --
--- Table structure for table `malaria_commodities`
+-- Table structure for table `Laboratory_commodities`
 --
 
-CREATE TABLE IF NOT EXISTS `malaria_commodities` (
+CREATE TABLE IF NOT EXISTS `lab_commodities` (
   `commodity_id` varchar(25) NOT NULL,
   `commodity_name` varchar(60) NOT NULL,
   `alt_name` varchar(255) NOT NULL,
@@ -3281,7 +3281,7 @@ CREATE TABLE IF NOT EXISTS `malaria_commodities` (
 -- Dumping data for table `malaria_commodities`
 --
 
-INSERT INTO `malaria_commodities` (`commodity_id`, `commodity_name`, `alt_name`, `unit_of_measure`, `commodity_description`) VALUES
+INSERT INTO `lab_commodities` (`commodity_id`, `commodity_name`, `alt_name`, `unit_of_measure`, `commodity_description`) VALUES
 ('fgGcpHh5Bl6', 'Rapid HIV 1+2 Test 2 - Confirmatory', '', '', ''),
 ('H3PiVz5cdlS', 'Rapid HIV 1+ 2 Test 3 - Tiebreakera', '', '', ''),
 ('iQvswzF7Zcr', 'ELISA HIV & AIDS 1+2 Test (Vironostika)', '', '', ''),
@@ -3297,7 +3297,7 @@ INSERT INTO `malaria_commodities` (`commodity_id`, `commodity_name`, `alt_name`,
 -- Table structure for table `mapping_drugs_category`
 --
 
-CREATE TABLE IF NOT EXISTS `mapping_drugs_category` (
+CREATE TABLE IF NOT EXISTS `lab_mapping_drugs_category` (
 `mapping_drugs_category` int(11) NOT NULL,
   `mapping_id` varchar(20) NOT NULL,
   `mapping_name` varchar(50) NOT NULL
@@ -3307,7 +3307,7 @@ CREATE TABLE IF NOT EXISTS `mapping_drugs_category` (
 -- Dumping data for table `mapping_drugs_category`
 --
 
-INSERT INTO `mapping_drugs_category` (`mapping_drugs_category`, `mapping_id`, `mapping_name`) VALUES
+INSERT INTO `lab_mapping_drugs_category` (`mapping_drugs_category`, `mapping_id`, `mapping_name`) VALUES
 (1, 'MnMPmhXaWns', 'Rapid Syphillis Test (RPR)'),
 (2, 'tc0zBZANhN6', '(Max MOS (Programme))'),
 (3, 'MT1UWZvCVUQ', '(Quantity Required For RESUPPLY)'),
@@ -3433,7 +3433,7 @@ INSERT INTO `mos_color_codes` (`color_id`, `color`, `description`) VALUES
 -- Table structure for table `pending_shipment_details`
 --
 
-CREATE TABLE IF NOT EXISTS `pending_shipment_details` (
+CREATE TABLE IF NOT EXISTS `lab_pending_shipment_details` (
 `pending_shipment_id` int(25) NOT NULL,
   `period` int(10) NOT NULL,
   `commodity_id` varchar(25) NOT NULL,
@@ -3449,7 +3449,7 @@ CREATE TABLE IF NOT EXISTS `pending_shipment_details` (
 -- Dumping data for table `pending_shipment_details`
 --
 
-INSERT INTO `pending_shipment_details` (`pending_shipment_id`, `period`, `commodity_id`, `funding_agency_id`, `quantity`, `expected_time_of_arrival`, `comments`, `transaction_status`, `unit_of_measure`) VALUES
+INSERT INTO `lab_pending_shipment_details` (`pending_shipment_id`, `period`, `commodity_id`, `funding_agency_id`, `quantity`, `expected_time_of_arrival`, `comments`, `transaction_status`, `unit_of_measure`) VALUES
 (14, 201511, 'nNhisoZuTzR', 1, '150', '2015-11-30', 'brief', 'pending', ''),
 (15, 201501, 'fgGcpHh5Bl6', 4, '700', '2016-01-01', 'brief', 'received', ''),
 (16, 201510, 'H3PiVz5cdlS', 6, '7800', '2015-07-31', 'just another shipment', 'pending', ''),
@@ -3465,7 +3465,7 @@ INSERT INTO `pending_shipment_details` (`pending_shipment_id`, `period`, `commod
 -- Table structure for table `planned_procurement_details`
 --
 
-CREATE TABLE IF NOT EXISTS `planned_procurement_details` (
+CREATE TABLE IF NOT EXISTS `lab_planned_procurement_details` (
 `planned_procurement_id` int(11) NOT NULL,
   `commodity_id` varchar(25) NOT NULL,
   `unit_of_measure` varchar(15) NOT NULL,
@@ -3479,7 +3479,7 @@ CREATE TABLE IF NOT EXISTS `planned_procurement_details` (
 -- Dumping data for table `planned_procurement_details`
 --
 
-INSERT INTO `planned_procurement_details` (`planned_procurement_id`, `commodity_id`, `unit_of_measure`, `quantity`, `planned_delivery_date`, `funding_agency_id`, `comment`) VALUES
+INSERT INTO `lab_planned_procurement_details` (`planned_procurement_id`, `commodity_id`, `unit_of_measure`, `quantity`, `planned_delivery_date`, `funding_agency_id`, `comment`) VALUES
 (1, 'BnGDrFwyQp9', '', '4443', '2015-09-09', 1, 's'),
 (2, 'BnGDrFwyQp9', '', '8709860', '2015-09-07', 4, 'fast'),
 (3, 'BnGDrFwyQp9', '5', '796860', '2015-09-05', 6, 's'),
@@ -3561,7 +3561,7 @@ INSERT INTO `zones` (`zone`, `comment`, `zone_id`) VALUES
 --
 -- Indexes for table `central_level_data`
 --
-ALTER TABLE `central_level_data`
+ALTER TABLE `lab_central_level_data`
  ADD PRIMARY KEY (`central_level_stock_id`), ADD KEY `supply_agency_id` (`supply_agency_id`), ADD KEY `commodity_id` (`commodity_id`), ADD KEY `funding_agency_id` (`funding_agency_id`);
 
 --
@@ -3573,7 +3573,7 @@ ALTER TABLE `ci_sessions`
 --
 -- Indexes for table `commodity_forecast_data`
 --
-ALTER TABLE `commodity_forecast_data`
+ALTER TABLE `lab_commodity_forecast_data`
  ADD PRIMARY KEY (`commodity_forecast_data_id`), ADD KEY `commodity_id` (`commodity_id`), ADD KEY `commodity_id_2` (`commodity_id`);
 
 --
@@ -3585,31 +3585,31 @@ ALTER TABLE `counties`
 --
 -- Indexes for table `county_level_data`
 --
-ALTER TABLE `county_level_data`
+ALTER TABLE `lab_county_level_data`
  ADD PRIMARY KEY (`county_drugs_id`), ADD KEY `county_id` (`county_id`);
 
 --
 -- Indexes for table `county_level_reporting_rates`
 --
-ALTER TABLE `county_level_reporting_rates`
+ALTER TABLE `lab_county_level_reporting_rates`
  ADD PRIMARY KEY (`reporting_rate_id`);
 
 --
 -- Indexes for table `current_stock`
 --
-ALTER TABLE `current_stock`
+ALTER TABLE `lab_current_stock`
  ADD PRIMARY KEY (`current_stock_id`);
 
 --
 -- Indexes for table `facility_level_data`
 --
-ALTER TABLE `facility_level_data`
+ALTER TABLE `lab_facility_level_data`
  ADD PRIMARY KEY (`central_drugs_id`);
 
 --
 -- Indexes for table `facility_level_reporting_rates`
 --
-ALTER TABLE `facility_level_reporting_rates`
+ALTER TABLE `lab_facility_level_reporting_rates`
  ADD PRIMARY KEY (`reporting_rate_id`);
 
 --
@@ -3619,27 +3619,27 @@ ALTER TABLE `funding_agencies`
  ADD PRIMARY KEY (`funding_agency_id`);
 
 --
--- Indexes for table `malaria_commodities`
+-- Indexes for table `Lab_commodities`
 --
-ALTER TABLE `malaria_commodities`
+ALTER TABLE `lab_commodities`
  ADD PRIMARY KEY (`commodity_id`), ADD KEY `pack_size` (`unit_of_measure`);
 
 --
 -- Indexes for table `mapping_drugs_category`
 --
-ALTER TABLE `mapping_drugs_category`
+ALTER TABLE `lab_mapping_drugs_category`
  ADD PRIMARY KEY (`mapping_drugs_category`);
 
 --
 -- Indexes for table `pending_shipment_details`
 --
-ALTER TABLE `pending_shipment_details`
+ALTER TABLE `lab_pending_shipment_details`
  ADD PRIMARY KEY (`pending_shipment_id`), ADD KEY `commodity_id` (`commodity_id`), ADD KEY `funding_agency_id` (`funding_agency_id`);
 
 --
 -- Indexes for table `planned_procurement_details`
 --
-ALTER TABLE `planned_procurement_details`
+ALTER TABLE `lab_planned_procurement_details`
  ADD PRIMARY KEY (`planned_procurement_id`);
 
 --
@@ -3667,37 +3667,37 @@ ALTER TABLE `zones`
 --
 -- AUTO_INCREMENT for table `central_level_data`
 --
-ALTER TABLE `central_level_data`
+ALTER TABLE `lab_central_level_data`
 MODIFY `central_level_stock_id` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT for table `commodity_forecast_data`
 --
-ALTER TABLE `commodity_forecast_data`
+ALTER TABLE `lab_commodity_forecast_data`
 MODIFY `commodity_forecast_data_id` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `county_level_data`
 --
-ALTER TABLE `county_level_data`
+ALTER TABLE `lab_county_level_data`
 MODIFY `county_drugs_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7037;
 --
 -- AUTO_INCREMENT for table `county_level_reporting_rates`
 --
-ALTER TABLE `county_level_reporting_rates`
+ALTER TABLE `lab_county_level_reporting_rates`
 MODIFY `reporting_rate_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1251;
 --
 -- AUTO_INCREMENT for table `current_stock`
 --
-ALTER TABLE `current_stock`
+ALTER TABLE `lab_current_stock`
 MODIFY `current_stock_id` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `facility_level_data`
 --
-ALTER TABLE `facility_level_data`
+ALTER TABLE `lab_facility_level_data`
 MODIFY `central_drugs_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=299;
 --
 -- AUTO_INCREMENT for table `facility_level_reporting_rates`
 --
-ALTER TABLE `facility_level_reporting_rates`
+ALTER TABLE `lab_facility_level_reporting_rates`
 MODIFY `reporting_rate_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `funding_agencies`
@@ -3705,19 +3705,19 @@ MODIFY `reporting_rate_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 ALTER TABLE `funding_agencies`
 MODIFY `funding_agency_id` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
--- AUTO_INCREMENT for table `mapping_drugs_category`
+-- AUTO_INCREMENT for table `lab_mapping_drugs_category`
 --
-ALTER TABLE `mapping_drugs_category`
+ALTER TABLE `lab_mapping_drugs_category`
 MODIFY `mapping_drugs_category` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=97;
 --
 -- AUTO_INCREMENT for table `pending_shipment_details`
 --
-ALTER TABLE `pending_shipment_details`
+ALTER TABLE `lab_pending_shipment_details`
 MODIFY `pending_shipment_id` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `planned_procurement_details`
 --
-ALTER TABLE `planned_procurement_details`
+ALTER TABLE `lab_planned_procurement_details`
 MODIFY `planned_procurement_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `supply_chain_agencies`
@@ -3741,16 +3741,16 @@ MODIFY `zone_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Constraints for table `central_level_data`
 --
-ALTER TABLE `central_level_data`
-ADD CONSTRAINT `central_level_data_ibfk_1` FOREIGN KEY (`funding_agency_id`) REFERENCES `funding_agencies` (`funding_agency_id`),
-ADD CONSTRAINT `central_level_data_ibfk_4` FOREIGN KEY (`commodity_id`) REFERENCES `malaria_commodities` (`commodity_id`);
+ALTER TABLE `lab_central_level_data`
+ADD CONSTRAINT `lab_central_level_data_ibfk_1` FOREIGN KEY (`funding_agency_id`) REFERENCES `funding_agencies` (`funding_agency_id`),
+ADD CONSTRAINT `lab_central_level_data_ibfk_4` FOREIGN KEY (`commodity_id`) REFERENCES `lab_commodities` (`commodity_id`);
 
 --
 -- Constraints for table `pending_shipment_details`
 --
 ALTER TABLE `pending_shipment_details`
-ADD CONSTRAINT `pending_shipment_details_ibfk_1` FOREIGN KEY (`funding_agency_id`) REFERENCES `funding_agencies` (`funding_agency_id`),
-ADD CONSTRAINT `pending_shipment_details_ibfk_2` FOREIGN KEY (`commodity_id`) REFERENCES `malaria_commodities` (`commodity_id`);
+ADD CONSTRAINT `lab_pending_shipment_details_ibfk_1` FOREIGN KEY (`funding_agency_id`) REFERENCES `funding_agencies` (`funding_agency_id`),
+ADD CONSTRAINT `lab_pending_shipment_details_ibfk_2` FOREIGN KEY (`commodity_id`) REFERENCES `lab__commodities` (`commodity_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
