@@ -1,5 +1,5 @@
 <?php
-class Lab_commodity_model extends CI_Model
+class Commodity_lab_model extends CI_Model
 {
     // GET THE COMMODITY WITH NAME SAME AS THE NAME IN CENTRAL DATA
     function get_commodity_id_with_the_given_name($commodity_name)
