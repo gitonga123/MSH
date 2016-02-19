@@ -1,3 +1,6 @@
+/**
+  *View page for family planning Supply Chain
+*/
 <?php require_once("includes/fb_header.php"); ?>
 
 

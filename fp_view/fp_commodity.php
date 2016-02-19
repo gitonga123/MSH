@@ -1,3 +1,6 @@
+/**
+  *View page for family planning Commodity
+*/
 <?php require_once("includes/fb_header.php"); ?>
 
 

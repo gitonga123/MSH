@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * User: urandu
- * Date: 7/11/15
- * Time: 3:05 PM
+ * Footer to display the Sponsors Logo and Time taken to produce a query
+ * Include in Every Veew Page
  */
 ?>
 

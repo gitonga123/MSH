@@ -1,3 +1,6 @@
+/**
+  *View County level Data API
+*/
 <?php
 require 'connect.php';
 require 'fetch.php';

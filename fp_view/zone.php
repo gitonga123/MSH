@@ -1,3 +1,6 @@
+/**
+  *View page for Zone
+*/
 <?php require_once("includes/header.php"); ?>
 
 

@@ -1,10 +1,7 @@
 <?php
 require_once("top_includes.php");
 /**
- * Created by IntelliJ IDEA.
- * User: urandu
- * Date: 7/11/15
- * Time: 2:44 PM
+ * Header Page 
  */
 
 ?>

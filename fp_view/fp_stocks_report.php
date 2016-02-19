@@ -1,3 +1,6 @@
+/**
+  *View page for family planning Stocks report
+*/
 <?php require_once("includes/fb_header.php"); ?>
 
 

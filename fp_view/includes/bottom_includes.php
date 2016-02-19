@@ -1,9 +1,8 @@
 <?php
+
 /**
- * Created by IntelliJ IDEA.
- * User: urandu
- * Date: 7/11/15
- * Time: 1:38 PM
+ * Include Assets Plugin for view
+ * This To be included in every view page
  */
 ?>
 

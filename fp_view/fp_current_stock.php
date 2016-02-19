@@ -1,3 +1,6 @@
+/**
+  *View page for family planning Commodity stock
+*/
 <?php require_once("includes/fb_header.php"); ?>
 
 

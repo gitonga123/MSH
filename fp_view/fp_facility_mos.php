@@ -1,3 +1,6 @@
+/**
+  *View page for Facility with data Family Planning Commodity
+*/
 <?php require_once("includes/fb_header.php"); ?>
 
 

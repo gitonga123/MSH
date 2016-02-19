@@ -1,3 +1,6 @@
+/**
+  *View page for family planning Home Page
+*/
 <?php require_once("includes/fb_header.php"); ?>
 
 <?php /*print_r($national_period);*/?>

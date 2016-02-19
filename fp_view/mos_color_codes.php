@@ -1,4 +1,5 @@
-
+/**
+  *View page for family planning color codes
 <?php require_once("includes/header.php"); ?>
 
 

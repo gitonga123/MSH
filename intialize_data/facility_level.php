@@ -1,3 +1,6 @@
+/**
+  *View page for Facility Level Data
+*/
 <?php
 
 require "connect.php";

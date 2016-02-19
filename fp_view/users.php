@@ -1,3 +1,6 @@
+/**
+  *View page for users view family planning
+*/
 <?php require_once("includes/header.php"); ?>
 
 

@@ -1,3 +1,6 @@
+/**
+  *Register New User
+*/
 <!DOCTYPE html>
 <html>
 

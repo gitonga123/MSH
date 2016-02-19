@@ -1,3 +1,6 @@
+/**
+  *View page for family planning Central Month of stock
+*/
 <?php require_once("includes/fb_header.php"); ?>
 
 

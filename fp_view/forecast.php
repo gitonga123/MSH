@@ -1,3 +1,6 @@
+/** 
+ *This page display the Forecost Commodity Data for each comodity stored in the database
+*/
 <?php require_once("includes/fb_header.php"); ?>
 
 

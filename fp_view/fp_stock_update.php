@@ -1,3 +1,6 @@
+/**
+  *View page for family planning Stock Update
+*/
 <?php require_once("includes/fb_header.php"); ?>
 
 
