@@ -61,7 +61,7 @@ class Fp_report_model.php extends CI_Model
 
         $query="SELECT commodity_id AS com_id,soh AS central_stock,
         (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)  AS pending_shipment,
-        (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+        (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
         (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
         ( 
           ( 
@@ -80,7 +80,7 @@ class Fp_report_model.php extends CI_Model
         {
             $query="SELECT commodity_id AS com_id, soh AS central_stock, 
             (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id) AS pending_shipment,
-            (select drug_value from facility_level_data where drug_category_id ='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count, 
+            (select drug_value from facility_level_data where drug_category_id ='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count, 
             (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
             (
               (
@@ -98,7 +98,7 @@ class Fp_report_model.php extends CI_Model
         {
             $query="SELECT commodity_id AS com_id, soh AS central_stock,
                     (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
-                    (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+                    (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
                     (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                       (
                         (
@@ -124,7 +124,7 @@ class Fp_report_model.php extends CI_Model
         {
             $query="SELECT commodity_id  AS com_id, soh  AS central_stock,
                     (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)  AS pending_shipment,
-                    (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+                    (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
                     (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                       (
                         (
@@ -158,7 +158,7 @@ class Fp_report_model.php extends CI_Model
         {
             $query="SELECT commodity_id  AS com_id, soh  AS central_stock,
                     (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
-                    (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+                    (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
                     (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                     (
                       (
@@ -193,7 +193,7 @@ class Fp_report_model.php extends CI_Model
         {
             $query="SELECT commodity_id AS com_id, soh  AS central_stock,
                    (SELECT sum(quantity)  FROM contraceptive_pending_shipment_details  WHERE commodity_id = com_id)     AS pending_shipment, 
-                   (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+                   (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
                     (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                      (
                        (
@@ -246,7 +246,7 @@ class Fp_report_model.php extends CI_Model
 
         $query="SELECT commodity_id  AS com_id, soh AS central_stock,
                 (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
-                (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+                (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
                 (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                 (
                   (
@@ -263,7 +263,7 @@ class Fp_report_model.php extends CI_Model
         {
             $query="SELECT commodity_id  AS com_id, soh  AS central_stock,
                     (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
-                    (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+                    (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
                     (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                     (
                      (
@@ -290,7 +290,7 @@ class Fp_report_model.php extends CI_Model
   sum(quantity)
    FROM contraceptive_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
-  (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+  (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
   (SELECT
   mapping_name
    FROM contraceptive_mapping_drugs_category
@@ -344,7 +344,7 @@ WHERE period = '{$period}'";
   sum(quantity)
    FROM contraceptive_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
-  (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+  (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
   (SELECT
   mapping_name
    FROM contraceptive_mapping_drugs_category
@@ -407,7 +407,7 @@ WHERE period = '{$period}'";
   sum(quantity)
    FROM contraceptive_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
-  (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+  (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
   (SELECT
   mapping_name
    FROM contraceptive_mapping_drugs_category
@@ -453,7 +453,7 @@ WHERE period = '{$period}'";
         {
             $query="SELECT  commodity_id AS com_id,soh  AS central_stock,
                 (SELECT sum(quantity) FROM contraceptive_ pending_shipment_details WHERE commodity_id = com_id) AS    pending_shipment,
-                (select drug_value from contraceptive_facility_level_data where drug_category_id='rPAsF4cpNxm' and drug_id=com_id and period='{$period}') as physical_count,
+                (select drug_value from contraceptive_facility_level_data where drug_category_id='i9dqmLZr7fd' and drug_id=com_id and period='{$period}') as physical_count,
                 (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                 (
                  (
@@ -929,7 +929,7 @@ WHERE period = '{$period}'";
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}'";
 
 
 
@@ -980,7 +980,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}'";
         }
 
 
@@ -1043,7 +1043,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}'";
         }
 
 
@@ -1118,7 +1118,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}'";
         }
 
 
@@ -1205,7 +1205,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}'";
         }
 
 
@@ -1303,7 +1303,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}'";
         }
 
 
@@ -1350,7 +1350,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_facility_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd'";
 
         $period1=subtract_date($period,1);
         $period2=subtract_date($period,2);
@@ -1403,7 +1403,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
 
 
 FROM contraceptive_facility_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd'";
 
         }
        if(facility_level_period_exists($period2)==true)
@@ -1463,7 +1463,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
 
 
 FROM contraceptive_facility_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd'";
        }
        if(facility_level_period_exists($period3)==true)
        {
@@ -1534,7 +1534,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
 
 
 FROM contraceptive_facility_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd'";
        }
        if(facility_level_period_exists($period4)==true)
        {
@@ -1617,7 +1617,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
 
 
 FROM contraceptive_facility_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd'";
        }
 
         if(facility_level_period_exists($period5)==true)
@@ -1714,7 +1714,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
 
 
 FROM contraceptive_facility_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd'";
         }
 
         $result=$this->db->query($query);
@@ -1772,7 +1772,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
     public function get_forecast_commodity_data_mos($period)
     {
 
-        $sql="SELECT commodity_forecast_data_id,forecast_start_date,forecast_period,commodity_id as cid,(SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id=cid) as commodity_name,forecast_monthly_consumption,(SELECT drug_value  FROM contraceptive_facility_level_data WHERE drug_category_id='rPAsF4cpNxm' AND period='{$period}' AND drug_id=cid )as physical_count FROM contraceptive_commodity_forecast_data order by cid";
+        $sql="SELECT commodity_forecast_data_id,forecast_start_date,forecast_period,commodity_id as cid,(SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id=cid) as commodity_name,forecast_monthly_consumption,(SELECT drug_value  FROM contraceptive_facility_level_data WHERE drug_category_id='i9dqmLZr7fd' AND period='{$period}' AND drug_id=cid )as physical_count FROM contraceptive_commodity_forecast_data order by cid";
         $result=$this->db->query($sql);
         return $result->result();
 
@@ -1940,7 +1940,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm'";
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}' and drug_id='{$commodity_id}'";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}' and drug_id='{$commodity_id}'";
 
 
 
@@ -1991,7 +1991,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}'  and drug_id='{$commodity_id}' ";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}'  and drug_id='{$commodity_id}' ";
         }
 
 
@@ -2054,7 +2054,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}' and drug_id='{$commodity_id}' ";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}' and drug_id='{$commodity_id}' ";
         }
 
 
@@ -2129,7 +2129,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}' and drug_id='{$commodity_id}'  ";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}' and drug_id='{$commodity_id}'  ";
         }
 
 
@@ -2214,7 +2214,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}' and drug_id='{$commodity_id}' ";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}' and drug_id='{$commodity_id}' ";
         }
 
 
@@ -2310,7 +2310,7 @@ WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$c
 
 
 FROM contraceptive_county_level_data
-WHERE period = '{$period}' and drug_category_id='rPAsF4cpNxm' and county_id='{$county}' and drug_id='{$commodity_id}' ";
+WHERE period = '{$period}' and drug_category_id='i9dqmLZr7fd' and county_id='{$county}' and drug_id='{$commodity_id}' ";
         }
 
 
