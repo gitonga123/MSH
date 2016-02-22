@@ -38,9 +38,14 @@ class Login extends CI_Controller
         $this->load->model('user_model');
         $email = $this->input->post('email');
         $password = $this->__encrip_password($this->input->post('password'));
+        //Get the value from the form
+        $system = $this->input->post('system');
+        
         $is_valid = $this->user_model->validate($email, $password);
 
         if ($is_valid) {
+            //$data['search'] = $system;
+            echo "Your Logined In";
             $role = $is_valid[0]['role'];
             $user_id = $is_valid[0]['user_id'];
             $names = $is_valid[0]['names'];
@@ -52,17 +57,23 @@ class Login extends CI_Controller
                 'role' => $role,
                 'names' => $names
             );
-            $this->session->set_userdata($data);
-
-
-            redirect(base_url());
-
-
-        } else // incorrect username or password
-        {
-            redirect(base_url());
-            //$data['error_message'] = TRUE;
-            //$this->load->view('login', $data);
+             if($system == 'Malaria') {
+               redirect(base_url().malaria_welcome);
+                
+            }
+            else if($system == 'Familiy Planning'){
+                redirect(base_url().contraceptive_welcome);
+            }
+            else if($system == 'Laboratory'){
+                redirect(base_url().lab_welcome);
+            }else{
+                echo '<script>alert("Please Select the system to use");</script>';
+                redirect(base_url());     
+            }
+            $this->session->set_userdata($data);              
+        } else {
+           // incorrect username or password
+            redirect(base_url());   
         }
     }
 

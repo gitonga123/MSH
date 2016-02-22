@@ -29,12 +29,23 @@
                 <!--<h1 class="logo-name">MSH</h1>-->
 
             </div>
-            <h3 style="color:white;font-size: 20px">Malaria Commodities Stock Monitoring Tool</h3>
+            <h3 style="color:white;font-size: 20px">Commodities Stock Monitoring Tool</h3>
            <!-- <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+                 <button class="btn btn-warning block full-width m-b" type="button" data-toggle="dropdown">Select System
+                      </div>
+                       <div class="dropdown">  <span class="caret"></span></button>
                 <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)
             </p>-->
             <p style="color:white;font-size: 18px" >Login in. To continue.</p>
             <form  method="post" role="form" action="<?php base_url(); ?>login/validate">
+                <div class="form-group">
+                        <select class="form-control" name="system">
+                            <option value="">--SYSTEM SELECT--</option>
+                            <option value="Malaria">Malaria</option>
+                            <option value="Familiy Planning">Familiy Planning</option>
+                            <option value="Laboratory">Laboratory</option>
+                        </select>
+                </div>
                 <div class="form-group">
                     <input name="email" type="email" class="form-control" placeholder="Username" required="">
                 </div>
