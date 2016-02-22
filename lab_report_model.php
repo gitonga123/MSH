@@ -1,5 +1,5 @@
 <?php
-class Fp_report_model extends CI_Model
+class Lab_report_model extends CI_Model
 {
 
 
@@ -8,9 +8,9 @@ class Fp_report_model extends CI_Model
         parent::__construct();
 
     }
-    function get_central_level_periods()
+    function get_central_lab_level_periods()
     {
-        $query="SELECT DISTINCT period FROM contraceptive_current_stock ORDER by period DESC";
+        $query="SELECT DISTINCT period FROM lab_current_stock ORDER by period DESC";
 
         $result=$this->db->query($query);
 
@@ -20,7 +20,7 @@ class Fp_report_model extends CI_Model
 
 
 
-    public function forecast_variance_tracker($period)
+    public function forecast_lab_variance_tracker($period)
     {
 
         $period1=subtract_date($period,1);
@@ -30,20 +30,20 @@ class Fp_report_model extends CI_Model
         $period5=subtract_date($period,5);
 
         $query="SELECT commodity_id as cid,forecast_start_date,forecast_period,forecast_monthly_consumption,
-         (SELECT reporting_rate_value FROM `contraceptive_facility_level_reporting_rates`where period='{$period}')as reporting_rate_value,
-         (SELECT reporting_rate_value FROM `contraceptive_facility_level_reporting_rates`where period='{$period1}')as reporting_rate_value1,
-         (SELECT reporting_rate_value FROM `contraceptive_facility_level_reporting_rates`where period='{$period2}')as reporting_rate_value2,
-         (SELECT reporting_rate_value FROM `contraceptive_facility_level_reporting_rates`where period='{$period3}')as reporting_rate_value3,
-         (SELECT reporting_rate_value FROM `contraceptive_facility_level_reporting_rates`where period='{$period4}')as reporting_rate_value4,
-         (SELECT reporting_rate_value FROM `contraceptive_facility_level_reporting_rates`where period='{$period5}')as reporting_rate_value5,
-        (SELECT commodity_name FROM contraceptive__commodities WHERE commodity_id = cid)as commodity_name,
-        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period}' AND drug_id=cid )as actual_consumption,
-        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period1}' AND drug_id=cid )as actual_consumption1,
-        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period2}' AND drug_id=cid )as actual_consumption2,
-        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period3}' AND drug_id=cid )as actual_consumption3,
-        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period4}' AND drug_id=cid )as actual_consumption4,
-        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period5}' AND drug_id=cid )as actual_consumption5 
-        FROM `contraceptive_commodity_forecast_data` order by cid";
+         (SELECT reporting_rate_value FROM `lab_facility_level_reporting_rates`where period='{$period}')as reporting_rate_value,
+         (SELECT reporting_rate_value FROM `lab_facility_level_reporting_rates`where period='{$period1}')as reporting_rate_value1,
+         (SELECT reporting_rate_value FROM `lab_facility_level_reporting_rates`where period='{$period2}')as reporting_rate_value2,
+         (SELECT reporting_rate_value FROM `lab_facility_level_reporting_rates`where period='{$period3}')as reporting_rate_value3,
+         (SELECT reporting_rate_value FROM `lab_facility_level_reporting_rates`where period='{$period4}')as reporting_rate_value4,
+         (SELECT reporting_rate_value FROM `lab_facility_level_reporting_rates`where period='{$period5}')as reporting_rate_value5,
+        (SELECT commodity_name FROM lab__commodities WHERE commodity_id = cid)as commodity_name,
+        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period}' AND drug_id=cid )as actual_consumption,
+        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period1}' AND drug_id=cid )as actual_consumption1,
+        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period2}' AND drug_id=cid )as actual_consumption2,
+        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period3}' AND drug_id=cid )as actual_consumption3,
+        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period4}' AND drug_id=cid )as actual_consumption4,
+        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period5}' AND drug_id=cid )as actual_consumption5 
+        FROM `lab_commodity_forecast_data` order by cid";
         $result=$this->db->query($query);
         return $result->result();
 
@@ -60,35 +60,35 @@ class Fp_report_model extends CI_Model
         $period5=subtract_date($period,5);
 
         $query="SELECT commodity_id AS com_id,soh AS central_stock,
-        (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)  AS pending_shipment,
-        (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
-        (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+        (SELECT sum(quantity) FROM lab_pending_shipment_details WHERE commodity_id = com_id)  AS pending_shipment,
+        (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+        (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
         ( 
           ( 
             ( 
               (
-                (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
-                (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period}')
+                (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
+                (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period}')
                 )*100
               )
             )/1
-          ) AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+          ) AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
 
 
 
         if(central_level_period_exists($period1)==true)
         {
             $query="SELECT commodity_id AS com_id, soh AS central_stock, 
-            (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id) AS pending_shipment,
+            (SELECT sum(quantity) FROM lab_pending_shipment_details WHERE commodity_id = com_id) AS pending_shipment,
             (select drug_value from facility_level_data where drug_category_id ='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count, 
-            (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+            (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
             (
               (
                 (
-                  ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
-                    (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period}'))*100)+(
-                    ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / 
-                    (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period1}'))*100
+                  ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
+                    (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period}'))*100)+(
+                    ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / 
+                    (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period1}'))*100
                     )
                   )/2 
                 ) AS adjusted_facility_amc FROM current_stock WHERE period = '{$period}'"; }
@@ -97,132 +97,132 @@ class Fp_report_model extends CI_Model
         if(central_level_period_exists($period2)==true)
         {
             $query="SELECT commodity_id AS com_id, soh AS central_stock,
-                    (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
-                    (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
-                    (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+                    (SELECT sum(quantity) FROM lab_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
+                    (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+                    (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                       (
                         (
                           (
-                            ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
-                              (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period}'))*100 ) + (
-                            ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / 
-                              (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period1}'))*100
+                            ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
+                              (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period}'))*100 ) + (
+                            ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / 
+                              (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period1}'))*100
                                 )
 
                                 +
                                 (
-                            ( (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}') / 
-                              (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period2}'))*100
+                            ( (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}') / 
+                              (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period2}'))*100
                                 )
 
                               )/3
-                            ) AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+                            ) AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
         }
 
 
         if(central_level_period_exists($period3)==true)
         {
             $query="SELECT commodity_id  AS com_id, soh  AS central_stock,
-                    (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)  AS pending_shipment,
-                    (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
-                    (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+                    (SELECT sum(quantity) FROM lab_pending_shipment_details WHERE commodity_id = com_id)  AS pending_shipment,
+                    (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+                    (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                       (
                         (
                           (
-                            ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
-                              (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period}'))*100
+                            ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
+                              (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period}'))*100
                                 )
                                 +
                                 (
-                            ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / 
-                                (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period1}'))*100
+                            ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / 
+                                (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period1}'))*100
                                   )
 
                                   +
                                   (
-                            ( (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}') / 
-                              (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period2}'))*100
+                            ( (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}') / 
+                              (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period2}'))*100
                                   )
                                   +
                                   (
-                            ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}') / 
-                              (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period3}'))*100
+                            ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}') / 
+                              (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period3}'))*100
                                     )
 
                                   )/4
-                                )AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+                                )AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
         }
 
 
         if(central_level_period_exists($period4)==true)
         {
             $query="SELECT commodity_id  AS com_id, soh  AS central_stock,
-                    (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
-                    (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
-                    (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+                    (SELECT sum(quantity) FROM lab_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
+                    (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+                    (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                     (
                       (
                         (
-                          ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period}'))*100
+                          ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period}'))*100
                         )
                         +
                         (
-                          ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period1}'))*100
+                          ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period1}'))*100
                         )
 
                         +
                         (
-                          ( (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq'  AND drug_id = com_id  AND period = '{$period2}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period2}'))*100
+                          ( (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq'  AND drug_id = com_id  AND period = '{$period2}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period2}'))*100
                         )
                         +
                         (
-                          ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period3}'))*100
+                          ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period3}'))*100
                        )
                        +
                        (
-                         ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period4}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period4}'))*100
+                         ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period4}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period4}'))*100
                         )
 
 
                       )/5
-                    )AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+                    )AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
         }
 
 
         if(central_level_period_exists($period5)==true)
         {
             $query="SELECT commodity_id AS com_id, soh  AS central_stock,
-                   (SELECT sum(quantity)  FROM contraceptive_pending_shipment_details  WHERE commodity_id = com_id)     AS pending_shipment, 
-                   (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
-                    (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+                   (SELECT sum(quantity)  FROM lab_pending_shipment_details  WHERE commodity_id = com_id)     AS pending_shipment, 
+                   (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+                    (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                      (
                        (
                           (
-                            ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period}'))*100
+                            ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period}'))*100
                             )
                             +
                             (
-                            ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period1}'))*100
+                            ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period1}'))*100
                               )
 
                               +
                               (
-                              ( (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period2}'))*100
+                              ( (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period2}'))*100
                               )
                               +
                               (
-                              ((SELECT drug_value  FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value  FROM contraceptive_facility_level_reporting_rates  WHERE period = '{$period3}'))*100
+                              ((SELECT drug_value  FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value  FROM lab_facility_level_reporting_rates  WHERE period = '{$period3}'))*100
                              )
                              +
                              (
-                               ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period4}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period4}'))*100
+                               ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period4}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period4}'))*100
                               )
                               +
                               (                       
-                              ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period5}') / (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period5}'))*100
+                              ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period5}') / (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period5}'))*100
                                 )
                                 )/6
-                                ) AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+                                ) AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
             }
 
 
@@ -245,39 +245,39 @@ class Fp_report_model extends CI_Model
 
 
         $query="SELECT commodity_id  AS com_id, soh AS central_stock,
-                (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
-                (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
-                (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+                (SELECT sum(quantity) FROM lab_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
+                (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+                (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                 (
                   (
                     (
-                (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}')
+                (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}')
                     )
 
                   )/1
-                ) AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+                ) AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
 
 
 
         if(central_level_period_exists($period1)==true)
         {
             $query="SELECT commodity_id  AS com_id, soh  AS central_stock,
-                    (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
-                    (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
-                    (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+                    (SELECT sum(quantity) FROM lab_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
+                    (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+                    (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                     (
                      (
                      (
-                      (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}')
+                      (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}')
                    )
                    +
                     (
-                      (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}')
+                      (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}')
                       )
 
 
                     )/2
-                 ) AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+                 ) AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
         }
 
 
@@ -288,19 +288,19 @@ class Fp_report_model extends CI_Model
   soh               AS central_stock,
   (SELECT
   sum(quantity)
-   FROM contraceptive_pending_shipment_details
+   FROM lab_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
-  (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+  (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
    WHERE mapping_id = commodity_id) AS commodity_name,
   (
     (
       (
         (SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}')
@@ -309,7 +309,7 @@ class Fp_report_model extends CI_Model
       (
         (SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}')
@@ -319,7 +319,7 @@ class Fp_report_model extends CI_Model
       (
         (SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}')
@@ -330,7 +330,7 @@ class Fp_report_model extends CI_Model
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_current_stock
+FROM lab_current_stock
 WHERE period = '{$period}'";
         }
 
@@ -342,19 +342,19 @@ WHERE period = '{$period}'";
   soh               AS central_stock,
   (SELECT
   sum(quantity)
-   FROM contraceptive_pending_shipment_details
+   FROM lab_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
-  (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+  (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
    WHERE mapping_id = commodity_id) AS commodity_name,
   (
     (
       (
         (SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}')
@@ -363,7 +363,7 @@ WHERE period = '{$period}'";
       (
         (SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}')
@@ -373,7 +373,7 @@ WHERE period = '{$period}'";
       (
         (SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}')
@@ -382,7 +382,7 @@ WHERE period = '{$period}'";
       (
         (SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}')
@@ -393,7 +393,7 @@ WHERE period = '{$period}'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_current_stock
+FROM lab_current_stock
 WHERE period = '{$period}'";
         }
 
@@ -405,19 +405,19 @@ WHERE period = '{$period}'";
   soh               AS central_stock,
   (SELECT
   sum(quantity)
-   FROM contraceptive_pending_shipment_details
+   FROM lab_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
-  (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+  (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
    WHERE mapping_id = commodity_id) AS commodity_name,
   (
     (
       (
         (SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}')
@@ -426,63 +426,63 @@ WHERE period = '{$period}'";
       (
         (SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}')
       )
 
       +
       (
-        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}')
+        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}')
       )
       +
       (
-        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}')
+        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}')
       )
       +
       (
-        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period4}')
+        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period4}')
       )
 
 
     )/5
-  )AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+  )AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
         }
 
 
         if(central_level_period_exists($period5)==true)
         {
             $query="SELECT  commodity_id AS com_id,soh  AS central_stock,
-                (SELECT sum(quantity) FROM contraceptive_ pending_shipment_details WHERE commodity_id = com_id) AS    pending_shipment,
-                (select drug_value from contraceptive_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
-                (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+                (SELECT sum(quantity) FROM lab_ pending_shipment_details WHERE commodity_id = com_id) AS    pending_shipment,
+                (select drug_value from lab_facility_level_data where drug_category_id='ZxUQw1ay1cw' and drug_id=com_id and period='{$period}') as physical_count,
+                (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                 (
                  (
                     (
-                      (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}')
+                      (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}')
                       )
                 +
                 (
-                      (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}')
+                      (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}')
                 )
 
                 +
                 (
-                        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}')
+                        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period2}')
                            )
                            +
                            (
-                        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}')
+                        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period3}')
                       )
                       +
                       (
-                        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq  AND drug_id = com_i  AND period = '{$period4}')
+                        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq  AND drug_id = com_i  AND period = '{$period4}')
                       )
                       +
                       (
-                        (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period5}')
+                        (SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period5}')
                       )
                     )/6
-                  )AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+                  )AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
                         
               }
                  $result=$this->db->query($query); 
@@ -502,35 +502,35 @@ WHERE period = '{$period}'";
                         $period5=subtract_date($period,5);
 
                         $query="SELECT commodity_id AS com_id, soh AS central_stock,
-                  (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
-                  (SELECT contraceptive_mapping_name FROM mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+                  (SELECT sum(quantity) FROM lab_pending_shipment_details WHERE commodity_id = com_id)     AS pending_shipment,
+                  (SELECT lab_mapping_name FROM mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                   (
                     (
                       (
-                        ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
-                          (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period}'))*100
+                        ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
+                          (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period}'))*100
                       )
 
-                    )/1 AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+                    )/1 AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
 
 
 
         if(central_level_period_exists($period1)==true)
         {
             $query="SELECT commodity_id AS com_id, soh  AS central_stock,
-                    (SELECT sum(quantity) FROM contraceptive_pending_shipment_details WHERE commodity_id = com_id) AS pending_shipment, (SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
+                    (SELECT sum(quantity) FROM lab_pending_shipment_details WHERE commodity_id = com_id) AS pending_shipment, (SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = commodity_id) AS commodity_name,
                         (
                           (
                             (
-                     ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
-                      (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period}'))*100
+                     ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period}') / 
+                      (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period}'))*100
                           )
                         +
                       (
-                    ((SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / 
-                      (SELECT contraceptive_facility_level_reporting_rates.reporting_rate_value FROM contraceptive_facility_level_reporting_rates WHERE period = '{$period1}'))*100)
+                    ((SELECT drug_value FROM lab_facility_level_data WHERE drug_category_id = 'EJ8nUfcupBq' AND drug_id = com_id AND period = '{$period1}') / 
+                      (SELECT lab_facility_level_reporting_rates.reporting_rate_value FROM lab_facility_level_reporting_rates WHERE period = '{$period1}'))*100)
                       )/2
-                    )AS adjusted_facility_amc FROM contraceptive_current_stock WHERE period = '{$period}'";
+                    )AS adjusted_facility_amc FROM lab_current_stock WHERE period = '{$period}'";
         }
 
 
@@ -542,35 +542,35 @@ WHERE period = '{$period}'";
   soh               AS central_stock,
   (SELECT
   sum(quantity)
-   FROM contraceptive_pending_shipment_details
+   FROM lab_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
    WHERE mapping_id = commodity_id) AS commodity_name,
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period1}'))*100
       )
 
@@ -578,12 +578,12 @@ WHERE period = '{$period}'";
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period2}'))*100
       )
 
@@ -592,7 +592,7 @@ WHERE period = '{$period}'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_current_stock
+FROM lab_current_stock
 WHERE period = '{$period}'";
         }
 
@@ -605,35 +605,35 @@ WHERE period = '{$period}'";
   soh               AS central_stock,
   (SELECT
   sum(quantity)
-   FROM contraceptive_pending_shipment_details
+   FROM lab_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
    WHERE mapping_id = commodity_id) AS commodity_name,
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period1}'))*100
       )
 
@@ -641,12 +641,12 @@ WHERE period = '{$period}'";
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period2}'))*100
       )
       +
@@ -657,8 +657,8 @@ WHERE period = '{$period}'";
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period3}'))*100
       )
 
@@ -667,7 +667,7 @@ WHERE period = '{$period}'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_current_stock
+FROM lab_current_stock
 WHERE period = '{$period}'";
         }
 
@@ -680,35 +680,35 @@ WHERE period = '{$period}'";
   soh               AS central_stock,
   (SELECT
   sum(quantity)
-   FROM contraceptive_pending_shipment_details
+   FROM lab_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
    WHERE mapping_id = commodity_id) AS commodity_name,
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period1}'))*100
       )
 
@@ -716,36 +716,36 @@ WHERE period = '{$period}'";
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period2}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period3}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period4}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period4}'))*100
       )
 
@@ -754,7 +754,7 @@ WHERE period = '{$period}'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_current_stock
+FROM lab_current_stock
 WHERE period = '{$period}'";
         }
 
@@ -767,83 +767,83 @@ WHERE period = '{$period}'";
   soh               AS central_stock,
   (SELECT
   sum(quantity)
-   FROM contraceptive_pending_shipment_details
+   FROM lab_pending_shipment_details
    WHERE commodity_id = com_id)     AS pending_shipment,
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
    WHERE mapping_id = commodity_id) AS commodity_name,
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period1}'))*100
       )
 
       +
       (
         ((SELECT drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period2}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period3}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period4}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period4}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period5}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period5}'))*100
       )
     )/6
@@ -851,7 +851,7 @@ WHERE period = '{$period}'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_current_stock
+FROM lab_current_stock
 WHERE period = '{$period}'";
         }
 
@@ -905,21 +905,21 @@ WHERE period = '{$period}'";
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
 
@@ -928,7 +928,7 @@ WHERE period = '{$period}'";
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}'";
 
 
@@ -943,33 +943,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -979,7 +979,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}'";
         }
 
@@ -994,33 +994,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -1028,12 +1028,12 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period2}' and county_id=coun_id))*100
       )
 
@@ -1042,7 +1042,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}'";
         }
 
@@ -1057,33 +1057,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -1091,24 +1091,24 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period2}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period3}' and county_id=coun_id))*100
       )
 
@@ -1117,7 +1117,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}'";
         }
 
@@ -1132,33 +1132,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -1166,36 +1166,36 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period2}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period3}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period4}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period4}' and county_id=coun_id))*100
       )
 
@@ -1204,7 +1204,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}'";
         }
 
@@ -1219,33 +1219,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -1253,48 +1253,48 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period2}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period3}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period4}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period4}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period ='{$period5}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period5}' and county_id=coun_id))*100
       )
     )/6
@@ -1302,7 +1302,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}'";
         }
 
@@ -1326,21 +1326,21 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
 
@@ -1349,7 +1349,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_facility_level_data
+FROM lab_facility_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
         $period1=subtract_date($period,1);
@@ -1367,33 +1367,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period1}'))*100
       )
 
@@ -1402,7 +1402,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_facility_level_data
+FROM lab_facility_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
         }
@@ -1414,33 +1414,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period1}'))*100
       )
 
@@ -1448,12 +1448,12 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period2}'))*100
       )
 
@@ -1462,7 +1462,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_facility_level_data
+FROM lab_facility_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
        }
        if(facility_level_period_exists($period3)==true)
@@ -1473,33 +1473,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period1}'))*100
       )
 
@@ -1507,24 +1507,24 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period2}'))*100
       )
        +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period3}'))*100
       )
 
@@ -1533,7 +1533,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_facility_level_data
+FROM lab_facility_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
        }
        if(facility_level_period_exists($period4)==true)
@@ -1544,33 +1544,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period1}'))*100
       )
 
@@ -1578,36 +1578,36 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period2}'))*100
       )
        +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period3}'))*100
       )
        +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period4}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period4}'))*100
       )
 
@@ -1616,7 +1616,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_facility_level_data
+FROM lab_facility_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
        }
 
@@ -1628,33 +1628,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period}'))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period1}'))*100
       )
 
@@ -1662,36 +1662,36 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period2}'))*100
       )
        +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period3}'))*100
       )
        +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period4}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period4}'))*100
       )
 
@@ -1699,12 +1699,12 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
       (
         ((SELECT
   drug_value
-         FROM contraceptive_facility_level_data
+         FROM lab_facility_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period5}') / (SELECT
-  contraceptive_facility_level_reporting_rates.reporting_rate_value
-                                       FROM contraceptive_facility_level_reporting_rates
+  lab_facility_level_reporting_rates.reporting_rate_value
+                                       FROM lab_facility_level_reporting_rates
                                        WHERE period = '{$period5}'))*100
       )
 
@@ -1713,7 +1713,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
                                     AS adjusted_facility_amc
 
 
-FROM contraceptive_facility_level_data
+FROM lab_facility_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
         }
 
@@ -1734,7 +1734,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
     {
 
 
-        $query="SELECT DISTINCT period FROM contraceptive_facility_level_data ORDER by period DESC";
+        $query="SELECT DISTINCT period FROM lab_facility_level_data ORDER by period DESC";
 
         $result=$this->db->query($query);
 
@@ -1749,7 +1749,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
     {
 
 
-        $query="SELECT DISTINCT period FROM contraceptive_facility_level_data WHERE period >='201411' ORDER by period DESC";
+        $query="SELECT DISTINCT period FROM lab_facility_level_data WHERE period >='201411' ORDER by period DESC";
 
         $result=$this->db->query($query);
 
@@ -1762,7 +1762,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
     {
 
 
-        $query="SELECT DISTINCT period FROM contraceptive_facility_level_data ORDER by period DESC";
+        $query="SELECT DISTINCT period FROM lab_facility_level_data ORDER by period DESC";
 
         $result=$this->db->query($query);
 
@@ -1772,15 +1772,15 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
     public function get_forecast_commodity_data_mos($period)
     {
 
-        $sql="SELECT commodity_forecast_data_id,forecast_start_date,forecast_period,commodity_id as cid,(SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id=cid) as commodity_name,forecast_monthly_consumption,(SELECT drug_value  FROM contraceptive_facility_level_data WHERE drug_category_id='ZxUQw1ay1cw' AND period='{$period}' AND drug_id=cid )as physical_count FROM contraceptive_commodity_forecast_data order by cid";
+        $sql="SELECT commodity_forecast_data_id,forecast_start_date,forecast_period,commodity_id as cid,(SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id=cid) as commodity_name,forecast_monthly_consumption,(SELECT drug_value  FROM lab_facility_level_data WHERE drug_category_id='ZxUQw1ay1cw' AND period='{$period}' AND drug_id=cid )as physical_count FROM lab_commodity_forecast_data order by cid";
         $result=$this->db->query($sql);
         return $result->result();
 
     }
 
     // Function To Fetch All Commodies Record
-    function show_contraceptive_commodities(){
-        $query = $this->db->get('contraceptive_commodities');
+    function show_lab_commodities(){
+        $query = $this->db->get('lab_commodities');
         $query_result = $query->result();
         return $query_result;
     }
@@ -1790,7 +1790,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
         $transaction_status = "pending";
         $this->db->select('*, SUM(quantity) AS PendingTotal');
         $this->db->group_by('commodity_id');
-        $this->db->from('contraceptive_pending_shipment_details');
+        $this->db->from('lab_pending_shipment_details');
         $query = $this->db->get();
         $query_result = $query->result();
         return $query_result;
@@ -1805,7 +1805,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
         $this->db->select('*, SUM(quantity) AS PendingTotal');
         $this->db->group_by('commodity_id');
         $this->db->group_by('funding_agency_id');
-        $this->db->from('contraceptive_pending_shipment_details');
+        $this->db->from('lab_pending_shipment_details');
         $query = $this->db->get();
         $query_result = $query->result();
         return $query_result;
@@ -1826,7 +1826,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
         // $transaction_status = "pending";
         $this->db->group_by('commodity_id');
         $this->db->select_sum('quantity', 'total_per_commodity');
-        $this->db->from('contraceptive_pending_shipment_details');
+        $this->db->from('lab_pending_shipment_details');
         // $this->db->group_by('commodity_id');
         // $this->db->where('transaction_status', $transaction_status);
 
@@ -1852,7 +1852,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
     function show_central_stock(){
         $this->db->select('*, SUM(soh) as central_total');
         $this->db->group_by('commodity_id');
-        $query = $this->db->get('contraceptive_current_stock');
+        $query = $this->db->get('lab_current_stock');
         $query_result = $query->result();
         return $query_result;
 
@@ -1863,7 +1863,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
         $transaction_status = "pending";
         $this->db->select('*');
-        $this->db->from('contraceptive_pending_shipment_details');
+        $this->db->from('lab_pending_shipment_details');
         $this->db->where('transaction_status', $transaction_status);
         $query = $this->db->get();
         $query_result = $query->result();
@@ -1873,7 +1873,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
     function get_most_recent_county_period()
     {
-        $query="SELECT period FROM contraceptive_county_level_data ORDER by period DESC LIMIT 1 ";
+        $query="SELECT period FROM lab_county_level_data ORDER by period DESC LIMIT 1 ";
 
         $result=$this->db->query($query);
 
@@ -1883,7 +1883,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
     function get_all_commodities()
     {
 
-        $query="SELECT DISTINCT drug_id,(SELECT mapping_name FROM contraceptive_mapping_drugs_category WHERE mapping_id = drug_id) AS drug_name FROM contraceptive_county_level_data ORDER by drug_name ASC";
+        $query="SELECT DISTINCT drug_id,(SELECT mapping_name FROM lab_mapping_drugs_category WHERE mapping_id = drug_id) AS drug_name FROM lab_county_level_data ORDER by drug_name ASC";
 
         $result=$this->db->query($query);
 
@@ -1916,21 +1916,21 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
 
@@ -1939,7 +1939,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw'";
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}' and drug_id='{$commodity_id}'";
 
 
@@ -1954,33 +1954,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -1990,7 +1990,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}'  and drug_id='{$commodity_id}' ";
         }
 
@@ -2005,33 +2005,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -2039,12 +2039,12 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period2}' and county_id=coun_id))*100
       )
 
@@ -2053,7 +2053,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}' and drug_id='{$commodity_id}' ";
         }
 
@@ -2068,33 +2068,33 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
+   FROM lab_mapping_drugs_category
 
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM malaria_commodities    WHERE commodity_id = com_id) AS alt_name,
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM malaria_commodities    WHERE commodity_id = com_id) AS alt_name,
 
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -2102,24 +2102,24 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period2}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period3}' and county_id=coun_id))*100
       )
 
@@ -2128,7 +2128,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}' and drug_id='{$commodity_id}'  ";
         }
 
@@ -2143,31 +2143,31 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   FROM lab_mapping_drugs_category
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM lab_commodities    WHERE commodity_id = com_id) AS alt_name,
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -2175,36 +2175,36 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period2}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period3}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period4}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period4}' and county_id=coun_id))*100
       )
 
@@ -2213,7 +2213,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}' and drug_id='{$commodity_id}' ";
         }
 
@@ -2228,31 +2228,31 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
   (SELECT
   mapping_name
-   FROM contraceptive_mapping_drugs_category
-   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contraceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
+   FROM contaceptive_mapping_drugs_category
+   WHERE mapping_id = com_id) AS commodity_name,(SELECT   alt_name    FROM contaceptive_commodities    WHERE commodity_id = com_id) AS alt_name,(SELECT   alt_name    FROM contaceptive_commodities    WHERE commodity_id = com_id) AS alt_name,
   (
     (
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                            FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                            FROM lab_county_level_reporting_rates
                                             WHERE period = '{$period}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period1}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period1}' and county_id=coun_id))*100
       )
 
@@ -2260,48 +2260,48 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period2}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period2}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period3}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period3}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period = '{$period4}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period4}' and county_id=coun_id))*100
       )
       +
       (
         ((SELECT
   drug_value
-         FROM contraceptive_county_level_data
+         FROM lab_county_level_data
          WHERE drug_category_id = 'EJ8nUfcupBq'
                AND drug_id = com_id
                AND period ='{$period5}' and county_id=coun_id) / (SELECT
-  contraceptive_county_level_reporting_rates.reporting_rate_value
-                                                             FROM contraceptive_county_level_reporting_rates
+  county_level_reporting_rates.reporting_rate_value
+                                                             FROM lab_county_level_reporting_rates
                                                              WHERE period = '{$period5}' and county_id=coun_id))*100
       )
     )/6
@@ -2309,7 +2309,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
                                AS adjusted_county_amc
 
 
-FROM contraceptive_county_level_data
+FROM lab_county_level_data
 WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$county}' and drug_id='{$commodity_id}' ";
         }
 
@@ -2335,7 +2335,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
     function show_sorted_pending_stock(){
     $this->db->distinct();
     $this->db->group_by('period DESC' );
-    $query = $this->db->get('contraceptive_pending_shipment_details');
+    $query = $this->db->get('lab_pending_shipment_details');
     $query_result = $query->result();
     return $query_result;
 
@@ -2345,7 +2345,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
         $this->db->select('*, SUM(quantity) AS PendingTotal');
          $this->db->group_by('commodity_id');
         $this->db->group_by('funding_agency_id');
-        $this->db->from('contraceptive_pending_shipment_details');
+        $this->db->from('lab_pending_shipment_details');
         /*$this->db->where('period', $period);*/
         $query = $this->db->get();
         $query_result = $query->result();
@@ -2356,7 +2356,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
         $this->db->select('*, SUM(quantity) AS PendingTotal');
         $this->db->group_by('commodity_id');
        /* $this->db->where('period', $period);*/
-        $this->db->from('contraceptive_pending_shipment_details');
+        $this->db->from('lab_pending_shipment_details');
         $query = $this->db->get();
         $query_result = $query->result();
         return $query_result;
@@ -2370,7 +2370,7 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
         $this->db->select('*, SUM(soh) as central_total');
         $this->db->group_by('commodity_id');
         $this->db->where('period', $period);
-        $query = $this->db->get('contraceptive_current_stock');
+        $query = $this->db->get('lab_current_stock');
         $query_result = $query->result();
         return $query_result;
 
@@ -2380,3 +2380,5 @@ WHERE period = '{$period}' and drug_category_id='ZxUQw1ay1cw' and county_id='{$c
 
 
 }
+
+?>
