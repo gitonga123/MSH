@@ -1,4 +1,6 @@
-
+/**
+  *Fetch Data from county table and encode json File 
+*/
 <?php
 require "connect.php";
 // Make a MySQL Connection

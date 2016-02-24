@@ -1,5 +1,6 @@
-<?php
 
+<?php
+//Connect COnfiguration file
 $hostname="localhost"; //local server name default localhost
 $mysql_username="root";  //mysql username default is root.
 $mysql_password="daniel123";       

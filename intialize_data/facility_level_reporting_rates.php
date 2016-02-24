@@ -1,3 +1,6 @@
+/**
+  *View Facility Level reporting Rates
+*/
 <?php
 include('connect.php');
 

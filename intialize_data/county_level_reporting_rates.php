@@ -1,3 +1,6 @@
+/**
+  *View County Level Reporting Rates
+*/
 <?php
 require 'connect.php';
 require 'fetch.php';
