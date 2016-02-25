@@ -36,7 +36,7 @@ class Fp_report_model extends CI_Model
          (SELECT reporting_rate_value FROM `contraceptive_facility_level_reporting_rates`where period='{$period3}')as reporting_rate_value3,
          (SELECT reporting_rate_value FROM `contraceptive_facility_level_reporting_rates`where period='{$period4}')as reporting_rate_value4,
          (SELECT reporting_rate_value FROM `contraceptive_facility_level_reporting_rates`where period='{$period5}')as reporting_rate_value5,
-        (SELECT commodity_name FROM contraceptive__commodities WHERE commodity_id = cid)as commodity_name,
+        (SELECT commodity_name FROM contraceptive_commodities WHERE commodity_id = cid)as commodity_name,
         (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period}' AND drug_id=cid )as actual_consumption,
         (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period1}' AND drug_id=cid )as actual_consumption1,
         (SELECT drug_value FROM contraceptive_facility_level_data WHERE drug_category_id='EJ8nUfcupBq' AND period='{$period2}' AND drug_id=cid )as actual_consumption2,

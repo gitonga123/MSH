@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Contraceptive_reports extends MY_Controller
+class Contraceptive_report extends MY_Controller
 {
     private $data;
     protected $before_filter = array(
